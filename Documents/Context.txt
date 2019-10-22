@@ -1,0 +1,13 @@
+Contexte
+--------
+
+Faire une application qui :
+
+1) Dise bonjour à l'utilisateur
+2) Lui demande son nom et son prénom (en 2 demandes séparées)
+3) Si le nom et le prénom sont saisies, on lui affiche "Enchanté <Prénom> <Nom>, je te souhaite une belle journée."
+4) Si le nom et/ou le prénom n'est pas bien saisi, on affiche un message d'erreur explicite selon le problème rencontré et on retourne en 2)
+
+Consignes :
+- Tous les nommages (méthodes, propriétés, variables, classes, etc.) doivent être en anglais
+- Le code doit être commenté et aéré (lignes blanches)

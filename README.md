@@ -1,4 +1,4 @@
-# Formation Python étape 1
+# Formation Python étape 3
 
     Notions abordées :
     
@@ -9,13 +9,12 @@
     - Architecture logicielle
 
     - Langage :
-        - Variables et portée
-        - Méthode (def) avec et sans paramètre (Fonction/Procédure)
-        - Test (if, elif)
-        - Boucle (while)
-        - Opérateurs de comparaison (==)
-        - Opérateurs logiques (and, or)
-        - Interactions de base (print, input)
+        - Import de modules (random)
+        - Variables : typage explicite
+        - Ouverture et lecture d'un fichier texte
+        - Listes à 1 et 2 dimensions (tableau)
+        - Générateur de nombre aléatoire
+        - Gestion des erreurs/exceptions (try/except)
 
 # Énoncé du sujet
 

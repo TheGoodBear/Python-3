@@ -13,8 +13,8 @@ Faire un petit jeu de labyrinthe qui :
 8) Place le personnage à l'entrée du labyrinthe
 9) Demande à l'utilisateur de saisir une touche pour se déplacer en haut, en bas, à gauche et à droite (par exemple WSAD, ou HBGD)
 10) Si l'utilisateur saisi l'une de ces touches on déplace le personnage dans la direction choisie (sauf vers un mur ou si l'on sort du cadre du labyrinthe)
-11) Si l'utilisateur arrive sur la sortie, on affiche un message "Bravo <Prénom> <Nom>, vous avez gagné"
-12) sinon on revient en 9
+11) Si l'utilisateur arrive sur la sortie, on affiche un message "Bravo <Prénom> <Nom>, vous avez gagné" puis le programme s'arrête
+12) Sinon on revient en 9
 
 Consignes :
 - Tous les nommages (méthodes, propriétés, variables, classes, etc.) doivent être en anglais

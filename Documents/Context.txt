@@ -1,13 +1,22 @@
 Contexte
 --------
 
-Faire une application qui :
+Faire un petit jeu de labyrinthe qui :
 
 1) Dise bonjour à l'utilisateur
 2) Lui demande son nom et son prénom (en 2 demandes séparées)
 3) Si le nom et le prénom sont saisies, on lui affiche "Enchanté <Prénom> <Nom>, je te souhaite une belle journée."
 4) Si le nom et/ou le prénom n'est pas bien saisi, on affiche un message d'erreur explicite selon le problème rencontré et on retourne en 2)
+5) Lise un fichier texte contenant le dessin du labytinthe (par exemple de 15x15 cases avec des X pour les murs, des espaces pour les couloirs, un E pour l'entrée et un S pour la sortie)
+6) Charge les données du labytinthe dans une matrice (liste à 2 dimensions), chaque élément de cette matrice contient le contenu du labyrinthe à une coordonnée précise (y/colonne, x/ligne)
+7) Trace à l'écran (en mode console) le labyrinthe
+8) Place le personnage à l'entrée du labyrinthe
+9) Demande à l'utilisateur de saisir une touche pour se déplacer en haut, en bas, à gauche et à droite (par exemple WSAD, ou HBGD)
+10) Si l'utilisateur saisi l'une de ces touches on déplace le personnage dans la direction choisie (sauf vers un mur ou si l'on sort du cadre du labyrinthe)
+11) Si l'utilisateur arrive sur la sortie, on affiche un message "Bravo <Prénom> <Nom>, vous avez gagné"
+12) sinon on revient en 9
 
 Consignes :
 - Tous les nommages (méthodes, propriétés, variables, classes, etc.) doivent être en anglais
 - Le code doit être commenté et aéré (lignes blanches)
+- L'application doit utiliser des fonctions (def)

@@ -4,20 +4,9 @@
     
     - Spécifications :
         - Compéhension d'un contexte
-    
-    - IDE :
-        - Console / IDLE
-        - VS Code
-        - PyCharm
-        - SublimeText
-    
+        - Diagramme de flux
+      
     - Architecture logicielle
-        - Organisation d'un projet (dossiers, fichiers .py)
-        - Premier programme
-        - Déroulement séquentiel
-        - Indentation
-        - Nommage
-        - Commentaires
 
     - Langage :
         - Variables et portée

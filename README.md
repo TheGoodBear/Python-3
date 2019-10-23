@@ -9,7 +9,7 @@
     - Architecture logicielle
 
     - Langage :
-        - Import de modules (random)
+        - Import de modules (sys, random)
         - Variables : typage explicite
         - Ouverture et lecture d'un fichier texte
         - Listes à 1 et 2 dimensions (tableau)

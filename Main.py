@@ -9,13 +9,17 @@ import sys
 # Variables (must be declared BEFORE using them)
 # ---------
 
-# Define variables for player data (LastName and FirstName)
+# Variables for player data (LastName and FirstName)
 LastName: str = ""
 FirstName: str = ""
-# Define variables for maze
+# Variables for maze and objects
 MazeFilePath: str = "/Mazes"
 MazeFileName: str = "Maze 1"
 Maze = list()
+ObjectsInMaze = ["Statue de Dragon", "Statue de Poisson", "Statue d'Oiseau", "Statue de Buffle", "Miroir", "Clé dorée", "Clé argentée", "Bouteille"]
+# Variables for player character
+PlayerY: int = 0
+PlayerX: int = 0
 
 
 # Methods (must be declared BEFORE using them)
@@ -117,6 +121,72 @@ def LoadMazeFromFile(FileName: str) -> bool:
         return False
 
 
+def PutMazeObjectsAtRandomPositions():
+    """ 
+        Put all objects from dictionary at random positions in maze
+
+        :param arg1: The name of the file
+        :type arg1: string
+
+        :return: 
+            - True if no error
+            - False if an error occured
+        :rtype: boolean
+    """
+    
+    pass
+
+
+def DrawMazeOnScreen():
+    """ 
+        Draw maze in console
+    """
+
+    # Use global Maze variable
+    global Maze
+
+    # Prints a blank line
+    print()
+
+    # For each line (Y) in Maze
+    for Y in Maze:
+        # For each character (X) in line
+        for X in Maze[Y]:
+            # Print current maze element at Y, X without jumping a line
+            print(Maze[Y][X], end="")
+        # Jump a line for new Y
+        print()
+
+
+def WaitForPlayerAction() -> str:
+    """ 
+        Wait player to make an action
+
+        :return: 
+            - The name of the action if the action
+        :rtype: string
+    """
+    
+    # Print a blank line
+    print()
+
+    # Ask for player input until it is valid
+    while True:
+        PlayerInput = input("Entrez une action à effectuer -> se déplacer vers le (H)aut, le (B)as, la (G)auche ou la (D)roite : ")
+
+        # Check if this is a valid action
+        if (PlayerInput.upper == "H"):
+            return "MoveUp"
+        elif (PlayerInput.upper == "B"):
+            return "MoveBottom"
+        elif (PlayerInput.upper == "G"):
+            return "MoveLeft"
+        elif (PlayerInput.upper == "D"):
+            return "MoveRight"
+        else:
+            print("Cette action n'est pas reconnue.")
+
+
 # Application
 # -----------
 
@@ -139,7 +209,26 @@ while (LastName == "" or FirstName == ""):
     ShowPlayerDataResult(DataError)
 
 # 2) Initialize Maze
+
+# Load maze from text file to memory 2 dimensions list
 if not LoadMazeFromFile(MazeFileName):
     sys.exit()
 
+# Draw maze on screen
+DrawMazeOnScreen()
+
+# Put objects in random positions
+
 # 3) Game loop
+
+# Variable for end of game
+EndOfGame: bool = False
+
+# Do this code until end of game is triggered
+while not EndOfGame:
+
+    # Wait for a player action
+    PlayerAction: str = WaitForPlayerAction()
+
+    # Do action
+    pass

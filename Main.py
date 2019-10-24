@@ -9,11 +9,10 @@ import sys
 # Variables (must be declared BEFORE using them)
 # ---------
 
-# Variables for player data (LastName and FirstName)
-LastName: str = ""
-FirstName: str = ""
+# Variables for player data
+PlayerName: str = ""
 # Variables for maze and objects
-MazeFilePath: str = "/Mazes"
+MazeFilePath: str = "Mazes/"
 MazeFileName: str = "Maze 1"
 Maze = list()
 ObjectsInMaze = ["Statue de Dragon", "Statue de Poisson", "Statue d'Oiseau", "Statue de Buffle", "Miroir", "Clé dorée", "Clé argentée", "Bouteille"]
@@ -27,62 +26,27 @@ PlayerX: int = 0
 
 def GetPlayerData() -> str:
     """ 
-        Get player data (First and Last names)
+        Get player data
 
-        :return: an error if appropriate
-            - "" if no error
-            - "LF" if LastName and FirstName are empty
-            - "L" if only LastName is empty
-            - "F" if only FirstName is empty
+        :return: player name
         :rtype: string
     """
 
-    # Use global variables (defined at beginning of file)
-    global LastName
-    global FirstName
-
     # Ask for names if they are empty
-    if (FirstName == ""):
-        FirstName = input("Veuillez entrer votre prénom : ")
-    if (LastName == ""):
-        LastName = input("Veuillez entrer votre nom : ")
+    Name = input("\nMerci d'entrer ton nom : ")
 
-    # Check if names are empty
-    if (LastName == "" and FirstName == ""):
-        return "LF"
-    elif (LastName == ""):
-        return "L"
-    elif (FirstName == ""):
-        return "F"
+    # Return Name
+    return Name
 
 
-def ShowPlayerDataResult(ErrorMessage: str):
+def SayWelcome():
     """ 
-        Show player data result
-            - Welcome if all data is valid
-            - Error message if not
-
-        :param arg1: An error message if any
-        :type arg1: string
+        Say Welcome to player
     """
 
-    # Check for an error message
-    if (ErrorMessage == "LF"):
-        # Missing both names
-        print("Le prénom et le nom entrés sont vides, veuillez recommencer.")
-    elif (ErrorMessage == "L"):
-        # Missing LastName
-        print("Le nom entré est vide, veuillez compléter.")
-    elif (ErrorMessage == "F"):
-        # Missing FirstName
-        print("Le prénom entré est vide, veuillez compléter.")
-    else:
-        # Both names are not empty
-        # Say welcome
-        print()
-        print(
-            "Enchanté {0} {1}, j'espère que tu vas bien t'amuser." 
-            .format(FirstName, LastName))
+    print(
+        "Enchanté {0}, j'espère que tu vas bien t'amuser." 
+        .format(PlayerName))
 
 
 def LoadMazeFromFile(FileName: str) -> bool:
@@ -105,14 +69,15 @@ def LoadMazeFromFile(FileName: str) -> bool:
     # try/exception block, 
     try:
         # Open file (and automaticlly close it when finished)
-        with open(MazeFilePath + "/" + FileName, "r") as MyFile:
+        with open(MazeFilePath + FileName, "r") as MyFile:
             for Line in MyFile:
                 # Define temporary list to store evry character in a line
                 LineCharacters = list()
                 # For each Character in Line
                 for Character in Line:
-                    # Store Character in LineCharacters list
-                    LineCharacters.append(Character)
+                    # Store Character in LineCharacters list (except new line \n)
+                    if (Character != "\n"):
+                        LineCharacters.append(Character)
                 # Store LineCharacters list in Maze list (2 dimensional list)
                 Maze.append(LineCharacters)
         return True
@@ -149,9 +114,9 @@ def DrawMazeOnScreen():
     print()
 
     # For each line (Y) in Maze
-    for Y in Maze:
+    for Y, Line in enumerate(Maze):
         # For each character (X) in line
-        for X in Maze[Y]:
+        for X, Column in enumerate(Maze[Y]):
             # Print current maze element at Y, X without jumping a line
             print(Maze[Y][X], end="")
         # Jump a line for new Y
@@ -193,20 +158,17 @@ def WaitForPlayerAction() -> str:
 # 1) Splash screen and get player data
 
 # Say Hello to user
-print("Bonjour humain, veuillez vous identifier afin que je puisse interagir avec vous.")
+print("Bonjour humain, merci de t'identifier afin que je puisse interagir avec toi.")
 
-# While LastName or FirstName are empty
-while (LastName == "" or FirstName == ""):
+# While player name is empty
+while (PlayerName == ""):
 
-    # Print a blank line
-    print()
+    # Ask for name
+    PlayerName = GetPlayerData()
 
-    # Ask for names if they are empty
-    # and check if an error occurs
-    DataError = GetPlayerData()
+# Say welcome
+SayWelcome()
 
-    # Show result 
-    ShowPlayerDataResult(DataError)
 
 # 2) Initialize Maze
 
@@ -218,6 +180,9 @@ if not LoadMazeFromFile(MazeFileName):
 DrawMazeOnScreen()
 
 # Put objects in random positions
+
+# Say good luck
+print("\nTu es représenté par ☺ et tu dois sortir du labyrinthe, bonne chance.\n")
 
 # 3) Game loop
 

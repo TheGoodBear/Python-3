@@ -11,24 +11,33 @@ import sys
 
 # Variables for player data
 PlayerName: str = ""
+PlayerImage: str = "☺"
 # Variables for maze and objects
 MazeFilePath: str = "Mazes/"
 MazeFileName: str = "Maze 1"
 Maze = list()
 ObjectsInMaze = ["Statue de Dragon", "Statue de Poisson", "Statue d'Oiseau", "Statue de Buffle", "Miroir", "Clé dorée", "Clé argentée", "Bouteille"]
 # Variables for player character
-PlayerY: int = 0
 PlayerX: int = 0
+PlayerY: int = 0
 
 
 # Methods (must be declared BEFORE using them)
 # -------
 
+def ApplicationStart():
+    """ 
+        Initialize application and show initial message
+    """
+
+    print("\nBonjour humain, merci de t'identifier afin que je puisse interagir avec toi.")
+
+
 def GetPlayerData() -> str:
     """ 
         Get player data
 
-        :return: player name
+        :return: Player name
         :rtype: string
     """
 
@@ -45,8 +54,20 @@ def SayWelcome():
     """
 
     print(
-        "Enchanté {0}, j'espère que tu vas bien t'amuser." 
+        "\nEnchanté {0}, j'espère que tu vas bien t'amuser." 
         .format(PlayerName))
+
+
+def StartGame():
+    """ 
+        Give rules to player
+    """
+
+    print(
+        "\nTon objectif est de sortir du labyrinthe." + 
+        "\nTu es représenté par {0}, à chaque tour tu peux effectuer l'une des actions suivantes :".format(PlayerImage) + 
+        "\nTe déplacer vers le (H)aut, le (B)as, la (G)auche, la (D)roite ou (Q)uitter le jeu (et perdre...)" + 
+        "\nBonne chance.")
 
 
 def LoadMazeFromFile(FileName: str) -> bool:
@@ -68,7 +89,7 @@ def LoadMazeFromFile(FileName: str) -> bool:
 
     # try/exception block, 
     try:
-        # Open file (and automaticlly close it when finished)
+        # Open file (and automatically close it when finished)
         with open(MazeFilePath + FileName, "r") as MyFile:
             for Line in MyFile:
                 # Define temporary list to store evry character in a line
@@ -89,14 +110,6 @@ def LoadMazeFromFile(FileName: str) -> bool:
 def PutMazeObjectsAtRandomPositions():
     """ 
         Put all objects from dictionary at random positions in maze
-
-        :param arg1: The name of the file
-        :type arg1: string
-
-        :return: 
-            - True if no error
-            - False if an error occured
-        :rtype: boolean
     """
     
     pass
@@ -105,6 +118,7 @@ def PutMazeObjectsAtRandomPositions():
 def DrawMazeOnScreen():
     """ 
         Draw maze in console
+        Including player
     """
 
     # Use global Maze variable
@@ -113,6 +127,27 @@ def DrawMazeOnScreen():
     # Prints a blank line
     print()
 
+    # With simple loop (gives only the content)
+    # For each line (Y) in Maze
+    for Line in Maze:
+        # For each character (X) in line
+        for Column in Maze[Line]:
+            # Print current maze element at Y, X without jumping a line
+            print(Column, end="")
+        # Jump a line for new Y
+        print()
+    
+    # With range (gives only the coordinates)
+    # For each line (Y) in Maze
+    for Y in range(Maze):
+        # For each character (X) in line
+        for X in range(Y):
+            # Print current maze element at Y, X without jumping a line
+            print(Maze[Y][X], end="")
+        # Jump a line for new Y
+        print()
+    
+    # With enumerate (gives the content and the coordinates)
     # For each line (Y) in Maze
     for Y, Line in enumerate(Maze):
         # For each character (X) in line
@@ -123,46 +158,139 @@ def DrawMazeOnScreen():
         print()
 
 
+def PlacePlayerInMaze(
+    PlayerNewX: int = 0,
+    PlayerNewY: int = 0):
+    """ 
+        Place player in maze
+
+        :param arg1: The new X position of player
+        :type arg1: integer
+        :param arg2: The new Y position of player
+        :type arg2: integer
+    """
+
+    # Use global variables
+    global Maze, PlayerX, PlayerY
+
+    # Check if player is not already in the maze (coordinates set to 0)
+    if (PlayerX == 0 and PlayerY == 0):
+        # In that case put him at the entrance
+        # find it by browsing maze list
+        for Y in range(Maze):
+            for X in range(Maze[Y]):
+                # If position contains entrance (E)
+                # then save coordinates for player
+                # and replace entrance with player
+                if (Maze[Y][X] == "E"):
+                    PlayerX = X
+                    PlayerY = Y
+                    Maze[Y][X] == PlayerImage
+
+    else:
+        # Player is already in maze
+        # 1 - replace actual player position with an empty space
+        Maze[PlayerY, PlayerX] = " "
+        # 2 - place player to new position
+        Maze[PlayerNewY, PlayerNewX] = PlayerImage
+
+
 def WaitForPlayerAction() -> str:
     """ 
         Wait player to make an action
 
-        :return: 
-            - The name of the action if the action
+        :return: The name of the action if the action is valid
         :rtype: string
     """
-    
-    # Print a blank line
-    print()
 
     # Ask for player input until it is valid
     while True:
-        PlayerInput = input("Entrez une action à effectuer -> se déplacer vers le (H)aut, le (B)as, la (G)auche ou la (D)roite : ")
+        PlayerInput = input("\nQuelle est ta prochaine action ? ")
 
         # Check if this is a valid action
-        if (PlayerInput.upper == "H"):
+        # show a message saying what player is doing
+        # and return action name if valid
+        if (PlayerInput.upper() == "H"):
+            print("Je me déplace vers le haut...")
             return "MoveUp"
-        elif (PlayerInput.upper == "B"):
-            return "MoveBottom"
-        elif (PlayerInput.upper == "G"):
+        elif (PlayerInput.upper() == "B"):
+            print("Je me déplace vers le bas...")
+            return "MoveDown"
+        elif (PlayerInput.upper() == "G"):
+            print("Je me déplace vers la gauche...")
             return "MoveLeft"
-        elif (PlayerInput.upper == "D"):
+        elif (PlayerInput.upper() == "D"):
+            print("Je me déplace vers la droite...")
             return "MoveRight"
+        elif (PlayerInput.upper() == "Q"):
+            print("Je choisis de quitter le labyrinthe, j'ai perdu !")
+            return "QuitGame"
         else:
             print("Cette action n'est pas reconnue.")
+
+
+def ExecutePlayerAction(PlayerAction: str) -> bool:
+    """ 
+        Execute player action and returns new position
+
+        :param arg1: The action
+        :type arg1: string
+
+        :return: If this is the end of the game
+        :rtype: boolean
+    """
+
+    # Use global variables
+    global PlayerX, PlayerY
+
+    # Variables for new player coordinates
+    PlayerNewX: int
+    PlayerNewY: int
+
+    # Calculate player new coordinates
+    if (PlayerAction == "MoveUp"):
+        PlayerNewY -= 1
+    elif (PlayerAction == "MoveDown"):
+        PlayerNewY += 1
+    elif (PlayerAction == "MoveLeft"):
+        PlayerNewX -= 1
+    elif (PlayerAction == "MoveRight"):
+        PlayerNewX -= 1
+    elif (PlayerAction == "QuitGame"):
+        # If action is QuitGame the return game end
+        return True
+
+
+    # Check if new coordinates are valid (no obstacle)
+    # or if exit is reached
+    if (Maze[PlayerNewY][PlayerNewX] == "*"):
+        # If there is an obstacle, say it
+        print("Oups un mur, je ne peux pas bouger !")
+        return False
+    elif (Maze[PlayerNewY][PlayerNewX] == "X"):
+        # If exit is reached, say it
+        print("Ouiiii, j'ai trouvé la sortie !")
+        # and return game end
+        return True
+    else:
+        # If nothing special, assign new coordinates to player
+        PlayerX = PlayerNewX
+        PlayerY = PlayerNewY
+        # and redraw maze with new player position
+        DrawMazeOnScreen()
+        return False
 
 
 # Application
 # -----------
 
-# 1) Splash screen and get player data
+# 1) Show initial message and get player data
 
-# Say Hello to user
-print("Bonjour humain, merci de t'identifier afin que je puisse interagir avec toi.")
+# Application start
+ApplicationStart()
 
 # While player name is empty
 while (PlayerName == ""):
-
     # Ask for name
     PlayerName = GetPlayerData()
 
@@ -174,15 +302,20 @@ SayWelcome()
 
 # Load maze from text file to memory 2 dimensions list
 if not LoadMazeFromFile(MazeFileName):
+    # If maze file not found then stop application
     sys.exit()
+
+# Place player in maze
+PlacePlayerInMaze()
 
 # Draw maze on screen
 DrawMazeOnScreen()
 
 # Put objects in random positions
 
-# Say good luck
-print("\nTu es représenté par ☺ et tu dois sortir du labyrinthe, bonne chance.\n")
+# Start game
+StartGame()
+
 
 # 3) Game loop
 
@@ -196,4 +329,4 @@ while not EndOfGame:
     PlayerAction: str = WaitForPlayerAction()
 
     # Do action
-    pass
+    EndOfGame = ExecutePlayerAction(PlayerAction)

@@ -131,31 +131,31 @@ def DrawMazeOnScreen():
     # For each line (Y) in Maze
     for Line in Maze:
         # For each character (X) in line
-        for Column in Maze[Line]:
+        for Column in Line:
             # Print current maze element at Y, X without jumping a line
             print(Column, end="")
         # Jump a line for new Y
         print()
     
-    # With range (gives only the coordinates)
-    # For each line (Y) in Maze
-    for Y in range(Maze):
-        # For each character (X) in line
-        for X in range(Y):
-            # Print current maze element at Y, X without jumping a line
-            print(Maze[Y][X], end="")
-        # Jump a line for new Y
-        print()
+    # # With range and len (gives only the coordinates)
+    # # For each line (Y) in Maze
+    # for Y in range(len(Maze)):
+    #     # For each character (X) in line
+    #     for X in range(len(Maze[Y])):
+    #         # Print current maze element at Y, X without jumping a line
+    #         print(Maze[Y][X], end="")
+    #     # Jump a line for new Y
+    #     print()
     
-    # With enumerate (gives the content and the coordinates)
-    # For each line (Y) in Maze
-    for Y, Line in enumerate(Maze):
-        # For each character (X) in line
-        for X, Column in enumerate(Maze[Y]):
-            # Print current maze element at Y, X without jumping a line
-            print(Maze[Y][X], end="")
-        # Jump a line for new Y
-        print()
+    # # With enumerate (gives the content and the coordinates)
+    # # For each line (Y) in Maze
+    # for Y, Line in enumerate(Maze):
+    #     # For each character (X) in line
+    #     for X, Column in enumerate(Maze[Y]):
+    #         # Print current maze element at Y, X without jumping a line
+    #         print(Maze[Y][X], end="")
+    #     # Jump a line for new Y
+    #     print()
 
 
 def PlacePlayerInMaze(
@@ -173,26 +173,38 @@ def PlacePlayerInMaze(
     # Use global variables
     global Maze, PlayerX, PlayerY
 
+    # Variables for maze coordinates
+    X: int = 0
+    Y: int = 0
+
     # Check if player is not already in the maze (coordinates set to 0)
     if (PlayerX == 0 and PlayerY == 0):
         # In that case put him at the entrance
         # find it by browsing maze list
-        for Y in range(Maze):
-            for X in range(Maze[Y]):
+        for Line in Maze:
+            # New line, set X coordinate to 0
+            X = 0
+            for Character in Line:
                 # If position contains entrance (E)
-                # then save coordinates for player
-                # and replace entrance with player
                 if (Maze[Y][X] == "E"):
+                    # Save coordinates for player
                     PlayerX = X
                     PlayerY = Y
-                    Maze[Y][X] == PlayerImage
+                    # Replace entrance with player
+                    Maze[Y][X] = PlayerImage
+                    # Exit loops (and method)
+                    return
+                # Increment X coordinate
+                X += 1
+            # Increment Y coordinate
+            Y += 1
 
     else:
         # Player is already in maze
-        # 1 - replace actual player position with an empty space
-        Maze[PlayerY, PlayerX] = " "
-        # 2 - place player to new position
-        Maze[PlayerNewY, PlayerNewX] = PlayerImage
+        # replace actual player position with an empty space
+        Maze[PlayerY][PlayerX] = " "
+        # and place player to new position
+        Maze[PlayerNewY][PlayerNewX] = PlayerImage
 
 
 def WaitForPlayerAction() -> str:
@@ -211,19 +223,19 @@ def WaitForPlayerAction() -> str:
         # show a message saying what player is doing
         # and return action name if valid
         if (PlayerInput.upper() == "H"):
-            print("Je me déplace vers le haut...")
+            print("Tu te déplaces vers le haut...")
             return "MoveUp"
         elif (PlayerInput.upper() == "B"):
-            print("Je me déplace vers le bas...")
+            print("Tu te déplaces vers le bas...")
             return "MoveDown"
         elif (PlayerInput.upper() == "G"):
-            print("Je me déplace vers la gauche...")
+            print("Tu te déplaces vers la gauche...")
             return "MoveLeft"
         elif (PlayerInput.upper() == "D"):
-            print("Je me déplace vers la droite...")
+            print("Tu te déplaces vers la droite...")
             return "MoveRight"
         elif (PlayerInput.upper() == "Q"):
-            print("Je choisis de quitter le labyrinthe, j'ai perdu !")
+            print("Tu choisis de quitter le labyrinthe, tu as perdu !\n")
             return "QuitGame"
         else:
             print("Cette action n'est pas reconnue.")
@@ -244,8 +256,8 @@ def ExecutePlayerAction(PlayerAction: str) -> bool:
     global PlayerX, PlayerY
 
     # Variables for new player coordinates
-    PlayerNewX: int
-    PlayerNewY: int
+    PlayerNewX: int = PlayerX
+    PlayerNewY: int = PlayerY
 
     # Calculate player new coordinates
     if (PlayerAction == "MoveUp"):
@@ -255,25 +267,47 @@ def ExecutePlayerAction(PlayerAction: str) -> bool:
     elif (PlayerAction == "MoveLeft"):
         PlayerNewX -= 1
     elif (PlayerAction == "MoveRight"):
-        PlayerNewX -= 1
+        PlayerNewX += 1
     elif (PlayerAction == "QuitGame"):
         # If action is QuitGame the return game end
         return True
 
 
-    # Check if new coordinates are valid (no obstacle)
+    # Check if new coordinates are valid (into maze limits and no obstacle)
     # or if exit is reached
-    if (Maze[PlayerNewY][PlayerNewX] == "*"):
+    if (PlayerNewX<0 or 
+        PlayerNewX>len(Maze[0]) or 
+        PlayerNewY<0 or 
+        PlayerNewY>len(Maze)):
+        # If player is out of maze limits
+        print("Tu es en dehors des limites, tu ne peux pas aller par là !")
+        # and redraw maze with new player position
+        DrawMazeOnScreen()
+        return False
+    elif (Maze[PlayerNewY][PlayerNewX] == "*"):
         # If there is an obstacle, say it
-        print("Oups un mur, je ne peux pas bouger !")
+        print("Oups un mur, tu ne peux pas bouger !")
+        # and redraw maze with new player position
+        DrawMazeOnScreen()
         return False
     elif (Maze[PlayerNewY][PlayerNewX] == "X"):
-        # If exit is reached, say it
-        print("Ouiiii, j'ai trouvé la sortie !")
+        # If exit is reached
+        # replace player in maze
+        PlacePlayerInMaze(PlayerNewX,PlayerNewY)
+        # assign new coordinates to player
+        PlayerX = PlayerNewX
+        PlayerY = PlayerNewY
+        # redraw maze with new player position
+        DrawMazeOnScreen()
+        # say victory
+        print("Ouiiii, bravo {0}, tu as trouvé la sortie !\n".format(PlayerName))
         # and return game end
         return True
     else:
-        # If nothing special, assign new coordinates to player
+        # If nothing special
+        # replace player in maze
+        PlacePlayerInMaze(PlayerNewX,PlayerNewY)
+        # assign new coordinates to player
         PlayerX = PlayerNewX
         PlayerY = PlayerNewY
         # and redraw maze with new player position

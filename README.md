@@ -1,5 +1,7 @@
 # Formation Python étape 3
 
+    Jeu du labyrinthe V1
+
     Notions abordées :
     
     - IDE :
@@ -21,7 +23,6 @@
         - Ouverture et lecture d'un fichier texte
         - with : fermeture automatique des ressources
         - Listes à 1 et 2 dimensions (tableau)
-        - Diverses manières de parcourir/exploiter des listes
 
 # Énoncé du sujet
 

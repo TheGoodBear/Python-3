@@ -7,6 +7,7 @@
         - Diagramme de flux
       
     - Architecture logicielle
+        - Tous le code dans des méthodes excepté la trame principale
 
     - Langage :
         - Import de modules (sys, random)

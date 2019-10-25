@@ -15,7 +15,6 @@ PlayerImage: str = "☺"
 MazeFilePath: str = "Mazes/"
 MazeFileName: str = "Maze 1"
 Maze = list()
-ObjectsInMaze = ["Statue de Dragon", "Statue de Poisson", "Statue d'Oiseau", "Statue de Buffle", "Miroir", "Clé dorée", "Clé argentée", "Bouteille"]
 # Variables for player character
 PlayerX: int = 0
 PlayerY: int = 0

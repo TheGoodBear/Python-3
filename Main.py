@@ -1,8 +1,8 @@
 # My third Python application
 # Maze v1
 
-# Imports of modules
-# ------------------
+# Importation of modules
+# ----------------------
 import sys
 
 
@@ -70,49 +70,30 @@ def StartGame():
         "\nBonne chance.")
 
 
-def LoadMazeFromFile(FileName: str) -> bool:
+def LoadMazeFromFile(FileName: str):
     """ 
         Load maze from text file and store it into a 2 dimensional list
 
         :param arg1: The name of the file
         :type arg1: string
-
-        :return: 
-            - True if no error
-            - False if an error occured
-        :rtype: boolean
     """
 
     # Use global Maze variable
     global MazeFilePath
     global Maze
 
-    # try/exception block, 
-    try:
-        # Open file (and automatically close it when finished)
-        with open(MazeFilePath + FileName, "r") as MyFile:
-            for Line in MyFile:
-                # Define temporary list to store evry character in a line
-                LineCharacters = list()
-                # For each Character in Line
-                for Character in Line:
-                    # Store Character in LineCharacters list (except new line \n)
-                    if (Character != "\n"):
-                        LineCharacters.append(Character)
-                # Store LineCharacters list in Maze list (2 dimensional list)
-                Maze.append(LineCharacters)
-        return True
-    except OSError:
-        print("Le labyrinthe demandé n'a pas été trouvé !")
-        return False
-
-
-def PutMazeObjectsAtRandomPositions():
-    """ 
-        Put all objects from dictionary at random positions in maze
-    """
-    
-    pass
+    # Open file (and automatically close it when finished)
+    with open(MazeFilePath + FileName, "r") as MyFile:
+        for Line in MyFile:
+            # Define temporary list to store evry character in a line
+            LineCharacters = list()
+            # For each Character in Line
+            for Character in Line:
+                # Store Character in LineCharacters list (except new line \n)
+                if (Character != "\n"):
+                    LineCharacters.append(Character)
+            # Store LineCharacters list in Maze list (2 dimensional list)
+            Maze.append(LineCharacters)
 
 
 def DrawMazeOnScreen():
@@ -335,9 +316,7 @@ SayWelcome()
 # 2) Initialize Maze
 
 # Load maze from text file to memory 2 dimensions list
-if not LoadMazeFromFile(MazeFileName):
-    # If maze file not found then stop application
-    sys.exit()
+LoadMazeFromFile(MazeFileName)
 
 # Place player in maze
 PlacePlayerInMaze()

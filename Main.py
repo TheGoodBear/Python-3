@@ -1,4 +1,3 @@
-# My third Python application
 # Maze v1
 
 # Importation of modules
@@ -108,7 +107,6 @@ def DrawMazeOnScreen():
     # Prints a blank line
     print()
 
-    # With simple loop (gives only the content)
     # For each line (Y) in Maze
     for Line in Maze:
         # For each character (X) in line
@@ -118,26 +116,6 @@ def DrawMazeOnScreen():
         # Jump a line for new Y
         print()
     
-    # # With range and len (gives only the coordinates)
-    # # For each line (Y) in Maze
-    # for Y in range(len(Maze)):
-    #     # For each character (X) in line
-    #     for X in range(len(Maze[Y])):
-    #         # Print current maze element at Y, X without jumping a line
-    #         print(Maze[Y][X], end="")
-    #     # Jump a line for new Y
-    #     print()
-    
-    # # With enumerate (gives the content and the coordinates)
-    # # For each line (Y) in Maze
-    # for Y, Line in enumerate(Maze):
-    #     # For each character (X) in line
-    #     for X, Column in enumerate(Maze[Y]):
-    #         # Print current maze element at Y, X without jumping a line
-    #         print(Maze[Y][X], end="")
-    #     # Jump a line for new Y
-    #     print()
-
 
 def PlacePlayerInMaze(
     PlayerNewX: int = 0,

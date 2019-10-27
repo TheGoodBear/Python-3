@@ -77,11 +77,10 @@ def LoadMazeFromFile(FileName: str):
     """
 
     # Use global Maze variable
-    global MazeFilePath
     global Maze
 
     # Open file (and automatically close it when finished)
-    with open(MazeFilePath + FileName, "r") as MyFile:
+    with open(MazeFilePath + FileName + ".maz", "r") as MyFile:
         for Line in MyFile:
             # Define temporary list to store evry character in a line
             LineCharacters = list()

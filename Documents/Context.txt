@@ -7,7 +7,7 @@ Faire un petit jeu de labyrinthe qui :
 2) Lui demande son nom
 3) Si le nom est saisi, lui affiche un message de bienvenue
 4) Sinon retourne en 4
-5) Lit un fichier texte contenant le dessin du labyrinthe (par exemple de 15x15 cases avec des X pour les murs, des espaces pour les couloirs, un E pour l'entrée et un S pour la sortie)
+5) Lit un fichier texte (extension .maz) contenant le dessin du labyrinthe (par exemple de 15x15 cases avec des X pour les murs, des espaces pour les couloirs, un E pour l'entrée et un S pour la sortie)
 6) Charge les données du labyrinthe dans une matrice (liste à 2 dimensions), chaque élément de cette matrice contient le contenu du labyrinthe à une coordonnée précise (y/ligne, x/colonne)
 7) Place le personnage à l'entrée du labyrinthe
 8) Trace à l'écran (en mode console) le labyrinthe

@@ -4,17 +4,19 @@
 
     Notions abordées :
     
-    - IDE :
-        - Extensions
-        - Mode debuggage
-
     - Spécifications :
         - Compéhension d'un contexte
         - Diagramme de flux (flow chart)
+        
+    - IDE :
+        - Extensions
+        - Mode debuggage
       
     - Architecture logicielle
         - Tout le code dans des méthodes excepté la trame principale
         - Boucle de jeu
+        
+    - Données : NA
 
     - Langage :
         - Import de modules (sys)

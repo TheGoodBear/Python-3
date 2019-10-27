@@ -22,7 +22,7 @@
         - Chaines de caractères : caractères non imprimables (\n saut de ligne)
         - Ouverture et lecture d'un fichier texte
         - with : fermeture automatique des ressources
-        - Listes à 1 et 2 dimensions (tableau)
+        - Listes [] à 1 et 2 dimensions (tableau)
 
 # Énoncé du sujet
 

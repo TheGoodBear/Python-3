@@ -10,7 +10,7 @@ import sys
 
 # Variables for player data
 PlayerName: str = ""
-PlayerImage: str = "☺"
+PlayerImage: str = "☻" # alt+2
 # Variables for maze and objects
 MazeFilePath: str = "Mazes/"
 MazeFileName: str = "Maze 1"
@@ -39,8 +39,12 @@ def GetPlayerData() -> str:
         :rtype: string
     """
 
-    # Ask for names if they are empty
-    Name = input("\nMerci d'entrer ton nom : ")
+    Name: str = ""
+
+    # While player name is empty
+    while (PlayerName == ""):
+        # Ask for name
+        Name = input("\nMerci d'entrer ton nom : ")
 
     # Return Name
     return Name
@@ -280,10 +284,8 @@ def ExecutePlayerAction(PlayerAction: str) -> bool:
 # Application start
 ApplicationStart()
 
-# While player name is empty
-while (PlayerName == ""):
-    # Ask for name
-    PlayerName = GetPlayerData()
+# Ask for name
+PlayerName = GetPlayerData()
 
 # Say welcome
 SayWelcome()

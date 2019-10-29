@@ -16,10 +16,10 @@
         - Tout le code dans des méthodes excepté la trame principale
         - Boucle de jeu
         
-    - Données : NA
+    - Données : 
+        - Ressource en fichier texte
 
     - Langage :
-        - Import de modules (sys)
         - Variables : typage explicite et initialisation multiple sur une même ligne
         - Chaines de caractères : caractères non imprimables (\n saut de ligne)
         - Ouverture et lecture d'un fichier texte

@@ -1,10 +1,5 @@
 # Maze v1
 
-# Importation of modules
-# ----------------------
-import sys
-
-
 # Variables (must be declared BEFORE using them)
 # ---------
 
@@ -42,7 +37,7 @@ def GetPlayerData() -> str:
     Name: str = ""
 
     # While player name is empty
-    while (PlayerName == ""):
+    while (Name == ""):
         # Ask for name
         Name = input("\nMerci d'entrer ton nom : ")
 
@@ -102,9 +97,6 @@ def DrawMazeOnScreen():
         Draw maze in console
         Including player
     """
-
-    # Use global Maze variable
-    global Maze
 
     # Prints a blank line
     print()
@@ -261,7 +253,7 @@ def ExecutePlayerAction(PlayerAction: str) -> bool:
         # redraw maze with new player position
         DrawMazeOnScreen()
         # say victory
-        print("Ouiiii, bravo {0}, tu as trouvé la sortie !\n".format(PlayerName))
+        print("\nOuiiii, bravo {0}, tu as trouvé la sortie !\n".format(PlayerName))
         # and return game end
         return True
     else:

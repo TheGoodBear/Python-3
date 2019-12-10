@@ -20,7 +20,8 @@
         - Ressource en fichier texte
 
     - Langage :
-        - Variables : typage explicite et initialisation multiple sur une même ligne
+        - Annotations de type (à partir de la version 3.5, utilisé par l'intellisense et MyPy/PyLint - ouvrir console Ctrl+Shift+P puis Python: Select Linter)
+        - Variables : initialisation multiple sur une même ligne
         - Chaines de caractères : caractères non imprimables (\n saut de ligne)
         - Ouverture et lecture d'un fichier texte
         - with : fermeture automatique des ressources

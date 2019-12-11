@@ -1,6 +1,6 @@
 # Formation Python étape 3
 
-    Jeu du labyrinthe V1
+    Jeu du labyrinthe v1.0
 
     Notions abordées :
     
